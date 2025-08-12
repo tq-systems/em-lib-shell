@@ -1,0 +1,19 @@
+include:
+- project: tq-em/build/docker/base
+  file: ci/include.yml
+  ref: master
+
+.test-settings:
+  extends:
+    - .gitlab-runner-tag
+    - .image-ubuntu
+
+# Jobs
+Shell linter:
+  variables:
+    SHELLCHECK_OPTIONS: -P lib
+  extends: .lint-shell
+
+Integration Tests:
+  extends: .test-settings
+  script: make tests

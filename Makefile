@@ -1,4 +1,7 @@
 tests:
 	./test/copy.sh
 
-.PHONY: tests
+docs:
+	./scripts/docs.sh
+
+.PHONY: tests docs

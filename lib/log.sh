@@ -10,12 +10,12 @@
 # Functions
 tqem_log_info() {
 	local message="$1"
-	echo "[$SCRIPT_NAME]: $message"
+	echo "[$SCRIPT_NAME]:INFO: $message"
 }
 
 tqem_log_error_and_exit() {
 	local message="$1"
-	echo >&2 "[$SCRIPT_NAME]: $message"
+	echo >&2 "[$SCRIPT_NAME]:ERROR: $message"
 	exit 1
 }
 

@@ -22,3 +22,18 @@ DESCRIPTION
               create a symbolic link (requires a file in SOURCE)
               LINK is a mandatory argument for this option
 
+## tqem-version.sh
+NAME
+
+       tqem-version.sh - generate version string
+
+SYNOPSIS
+
+       tqem-version.sh
+
+DESCRIPTION
+
+       Generate a version string for the current repository and print it to stdout.
+
+       TQEM_FORCE_VERSION - Environmental variable to use as predefined version string
+

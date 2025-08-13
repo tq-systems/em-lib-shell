@@ -17,12 +17,15 @@ TQEM_SHELL_LIB_DIR="${TQEM_SHELL_LIB_DIR:-/usr/local/lib/tqem/shell}"
 
 usage() {
 	echo "NAME
+
        $SCRIPT_NAME - copy file or directory
 
 SYNOPSIS
+
        $SCRIPT_NAME SOURCE DESTINATION [OPTIONS]
 
 DESCRIPTION
+
        Copy SOURCE to DESTINATION.
 
        -o, --overwrite

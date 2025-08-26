@@ -1,3 +1,6 @@
+install:
+	./scripts/install.sh
+
 tests:
 	./test/copy.sh
 	./test/version.sh

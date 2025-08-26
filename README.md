@@ -19,6 +19,11 @@ A help can be displayed by using the `-h` or `--help` option.
 
 The library functions can be sourced in other scripts or applications as needed.
 
+## Installation
+The libraries with the associated scripts can be installed as follows:
+
+    sudo make install
+
 ## License information
 This project is licensed under the TQSPSLA-1.0.3 license, see LICENSE file for further details.
 

@@ -5,10 +5,14 @@
 # This file is part of the shell library.
 #
 # Copyright (c) 2025 TQ-Systems GmbH <license@tq-group.com>, D-82229 Seefeld, Germany. All rights reserved.
-# Author: Michael Krummsdorf
+# Author: Christoph Krutz
 
-# shellcheck source=log.sh
-. "$TQEM_SHELL_LIB_DIR/log.sh"
+set -e
 
-# shellcheck source=version.sh
-. "$TQEM_SHELL_LIB_DIR/version.sh"
+LIB_DIR="/usr/local/lib/tqem/shell"
+BIN_DIR="/usr/local/bin"
+
+mkdir -p "$LIB_DIR" "$BIN_DIR"
+
+cp -f lib/*.sh "$LIB_DIR"/
+cp -f bin/*.sh "$BIN_DIR"/

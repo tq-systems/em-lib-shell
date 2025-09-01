@@ -32,6 +32,9 @@ fail_on_diff() {
 	local source="$1"
 	local dest="$2"
 
+	# Wait a bit for slow systems
+	sleep 0.2
+
 	if ! diff "$source" "$dest"; then
 		tqem_log_error_and_exit "source ($source) and destination ($dest) file(s) differ"
 	fi

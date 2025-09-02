@@ -16,37 +16,24 @@ export PATH="$(pwd)/bin:$PATH"
 # shellcheck disable=SC2034
 SCRIPT_NAME="test/copy.sh"
 
-CUR_DIR="$(dirname "$0")"
+export CUR_DIR="$(dirname "$0")"
 export TQEM_SHELL_LIB_DIR="$CUR_DIR/../lib"
 
-# shellcheck source=../lib/log.sh
-. "$TQEM_SHELL_LIB_DIR/log.sh"
+# shellcheck disable=SC1091
+. "$CUR_DIR/common.sh"
 
 SOURCE_DIR="$CUR_DIR/copy/source"
 DEST_DIR="$CUR_DIR/copy/dest"
 
-# start with an empty destination directory
+# Start with an empty destination directory
 rm -rf "$DEST_DIR"
-
-TEST_COUNT=1
-
-log_test_title() {
-	local msg="$1"
-	echo -e "\n\033[1mTest $TEST_COUNT: $msg\033[0m"
-	TEST_COUNT=$((TEST_COUNT + 1))
-}
-
-log_success_expected() {
-	tqem_log_error_and_exit "The script did not run without errors as expected"
-}
-
-log_error_expected() {
-	tqem_log_error_and_exit "The script did not generate an error as expected"
-}
 
 fail_on_diff() {
 	local source="$1"
 	local dest="$2"
+
+	# Wait a bit for slow systems
+	sleep 0.2
 
 	if ! diff "$source" "$dest"; then
 		tqem_log_error_and_exit "source ($source) and destination ($dest) file(s) differ"
@@ -68,7 +55,7 @@ check_link_path() {
 # With bang:    The script should run successfully
 # Without bang: An error is expected when calling the script
 
-### dir to dir ###
+### Dir to dir ###
 log_test_title "Copy directory to inexistent directory"
 SOURCE="$SOURCE_DIR/dir"
 DEST="$DEST_DIR/dir2dir_1"
@@ -95,7 +82,7 @@ if tqem-copy.sh "$SOURCE" "$DEST"; then
 	log_error_expected
 fi
 
-### dir to file ###
+### Dir to file ###
 log_test_title "Try to copy a directory to a file with and without destination-file option"
 SOURCE="$SOURCE_DIR/dir"
 DEST="$DEST_DIR/dir2file"
@@ -111,7 +98,7 @@ if tqem-copy.sh "$SOURCE" "$DEST"; then
 	log_error_expected
 fi
 
-### file to dir ###
+### File to dir ###
 log_test_title "Copy file to inexistent directory"
 SOURCE="$SOURCE_DIR/file/test78.txt"
 DEST="$DEST_DIR/dir2file_1"
@@ -133,7 +120,7 @@ if tqem-copy.sh "$SOURCE" "$DEST"; then
 	log_error_expected
 fi
 
-### file to file ###
+### File to file ###
 SOURCE="$SOURCE_DIR/file/test78.txt"
 DEST="$DEST_DIR/file2file_1/test78.txt"
 
@@ -155,7 +142,7 @@ if tqem-copy.sh "$SOURCE" "$DEST"; then
 	log_error_expected
 fi
 
-### links ###
+### Links ###
 SOURCE="$SOURCE_DIR/dir"
 DEST="$DEST_DIR/link_1"
 
@@ -180,7 +167,7 @@ if ! tqem-copy.sh "$SOURCE" "$DEST" --link="$LINK"; then
 fi
 check_link_path "$DEST/test34.txt" "$LINK"
 
-### argument errors ###
+### Argument errors ###
 log_test_title "Pass too less arguments"
 if tqem-copy.sh 1; then
 	log_error_expected
@@ -204,17 +191,15 @@ if tqem-copy.sh "one" "two" --link=; then
 	log_error_expected
 fi
 
-
-### help ###
+### Help ###
 log_test_title "Show help"
 if ! tqem-copy.sh -h; then
 	log_success_expected
 fi
 
-# supress 2nd help output for better readability of the test log
+# Supress 2nd help output for better readability of the test log
 if ! tqem-copy.sh --help > /dev/null; then
 	log_success_expected
 fi
 
-
-echo -e "\n\033[1mAll tests passed successfully.\033[0m"
+log_successful_tests

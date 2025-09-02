@@ -22,6 +22,28 @@ DESCRIPTION
               create a symbolic link (requires a file in SOURCE)
               LINK is a mandatory argument for this option
 
+## tqem-device.sh
+NAME
+
+       tqem-device.sh - print device information
+
+SYNOPSIS
+
+       tqem-device.sh COMMAND DEVICE
+
+DESCRIPTION
+
+       Print specific device information to stdout.
+
+       The following commands exist:
+
+       arch        - print the architecture
+       bootloaders - print the bootloaders
+       machine     - print the machine
+       product-id  - print the product ID
+       subtype     - print the device subtype (if existent)
+       type        - print the device type
+
 ## tqem-version.sh
 NAME
 

@@ -3,6 +3,7 @@ install:
 
 tests:
 	./test/copy.sh
+	./test/device.sh
 	./test/version.sh
 
 docs:

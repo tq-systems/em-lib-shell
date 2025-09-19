@@ -12,15 +12,20 @@ DESCRIPTION
 
        Copy SOURCE to DESTINATION.
 
+       SOURCE can be a file, a directory or a link.
+       If SOURCE is directory, only the content of it will be copied.
+       DESTINATION is always a directory.
+
        -o, --overwrite
               overwrite existing destination file(s) without errors
 
-       -d, --destination-file
-              treat DESTINATION as a normal file (requires a file in SOURCE)
-
-       -l LINK, --link=LINK
-              create a symbolic link (requires a file in SOURCE)
+       -L LINK, --create-link=LINK
+              create a relative symbolic link (requires a file in SOURCE)
               LINK is a mandatory argument for this option
+
+       -l, --links
+              copy the link and the corresponding file (requires a file in SOURCE)
+              the link in the destination directory is relative
 
 ## tqem-device.sh
 NAME

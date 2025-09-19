@@ -28,15 +28,20 @@ DESCRIPTION
 
        Copy SOURCE to DESTINATION.
 
+       SOURCE can be a file, a directory or a link.
+       If SOURCE is directory, only the content of it will be copied.
+       DESTINATION is always a directory.
+
        -o, --overwrite
               overwrite existing destination file(s) without errors
 
-       -d, --destination-file
-              treat DESTINATION as a normal file (requires a file in SOURCE)
-
-       -l LINK, --link=LINK
-              create a symbolic link (requires a file in SOURCE)
+       -L LINK, --create-link=LINK
+              create a relative symbolic link (requires a file in SOURCE)
               LINK is a mandatory argument for this option
+
+       -l, --links
+              copy the link and the corresponding file (requires a file in SOURCE)
+              the link in the destination directory is relative
 "
 }
 
@@ -60,19 +65,19 @@ while [ "${1:0:1}" = '-' ]; do
 		# shellcheck disable=SC2034
 		OVERWRITE="true"
 		;;
-	-d|--destination-file)
-		# shellcheck disable=SC2034
-		DEST_IS_FILE="true"
-		;;
-	-l)
-		LINK="$1"
-		[ -z "$LINK" ] && tqem_log_error_and_exit "Missing link information"
+	-L)
+		CREATE_LINK="$1"
+		[ -z "$CREATE_LINK" ] && tqem_log_error_and_exit "Missing link information"
 		shift
 		;;
-	--link*)
+	--create-link*)
 		# shellcheck disable=SC2034
-		LINK=$(echo "$arg" | cut -d'=' -f2)
-		[ -z "$LINK" ] && tqem_log_error_and_exit "Missing link information"
+		CREATE_LINK=$(echo "$arg" | cut -d'=' -f2)
+		[ -z "$CREATE_LINK" ] && tqem_log_error_and_exit "Missing link information"
+		;;
+	-l|--links)
+		# shellcheck disable=SC2034
+		COPY_FILE_LINK="true"
 		;;
 	*)
 		tqem_log_error_and_exit "unknown option: $arg"

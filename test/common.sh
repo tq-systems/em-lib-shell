@@ -12,9 +12,15 @@
 
 TEST_COUNT=1
 
+log_topic_title() {
+	local msg="$1"
+	echo -e "\n\e[1;34m$SCRIPT_NAME tests: $msg\e[0m"
+
+}
+
 log_test_title() {
 	local msg="$1"
-	echo -e "\n\033[1mTest $TEST_COUNT: $msg\033[0m"
+	echo -e "\n\e[1mTest $TEST_COUNT: $msg\e[0m"
 	TEST_COUNT=$((TEST_COUNT + 1))
 }
 
@@ -27,5 +33,5 @@ log_error_expected() {
 }
 
 log_successful_tests() {
-	echo -e "\n\033[1mAll tests of $SCRIPT_NAME passed successfully.\033[0m"
+	echo -e "\n\e[1;32mAll tests of $SCRIPT_NAME passed successfully.\e[0m\n"
 }

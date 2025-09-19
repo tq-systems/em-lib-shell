@@ -1,2 +1,6 @@
 /test/copy/dest
 /test/repo-version
+/test/copy/source/abs_link
+/test/copy/source/rel_link
+/test/copy/source/file/abs_link
+/test/copy/source/file/rel_link

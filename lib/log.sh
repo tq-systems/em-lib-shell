@@ -13,6 +13,12 @@ tqem_log_info() {
 	echo "[$SCRIPT_NAME]:INFO: $message"
 }
 
+tqem_warning() {
+	local message="$1"
+	echo >&2 "[$SCRIPT_NAME]:WARNING: $message"
+}
+
+
 tqem_log_error_and_exit() {
 	local message="$1"
 	echo >&2 "[$SCRIPT_NAME]:ERROR: $message"

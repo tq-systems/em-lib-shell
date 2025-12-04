@@ -1,4 +1,31 @@
 # Executables
+## tqem-copy-safe.sh
+NAME
+
+       tqem-copy-safe.sh - safely copy file or directory without overwriting
+
+SYNOPSIS
+
+       tqem-copy-safe.sh SOURCE DESTINATION [OPTIONS]
+
+DESCRIPTION
+
+       Copy SOURCE to DESTINATION.
+
+       SOURCE can be a file, a directory or a link.
+       If SOURCE is directory, only the content of it will be copied.
+       DESTINATION is always a directory.
+       The target files are created without write permissions to prevent
+       accidental deleting/overwriting.
+
+       -L LINK, --create-link=LINK
+              create a relative symbolic link (requires a file in SOURCE)
+              LINK is a mandatory argument for this option
+
+       -l, --links
+              copy the link and the corresponding file (requires a file in SOURCE)
+              the link in the destination directory is relative
+
 ## tqem-copy.sh
 NAME
 

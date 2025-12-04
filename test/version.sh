@@ -7,16 +7,7 @@
 # Copyright (c) 2025 TQ-Systems GmbH <license@tq-group.com>, D-82229 Seefeld, Germany. All rights reserved.
 # Author: Michael Krummsdorf
 
-# shellcheck disable=SC2155
-export PATH="$(pwd)/bin:$PATH"
-
-# Set script name for logs
-# shellcheck disable=SC2034
-SCRIPT_NAME="test/version.sh"
-
 CUR_DIR="$(dirname "$0")"
-export TQEM_SHELL_LIB_DIR="$(realpath "$CUR_DIR"/../lib)"
-
 # shellcheck disable=SC1091
 . "$CUR_DIR/common.sh"
 

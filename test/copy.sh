@@ -7,18 +7,7 @@
 # Copyright (c) 2025 TQ-Systems GmbH <license@tq-group.com>, D-82229 Seefeld, Germany. All rights reserved.
 # Author: Christoph Krutz
 
-# Set the script folder at the beginning of the PATH variable to ensure the use of the current
-# scripts, existing scripts in the host with the same name will be ignored
-# shellcheck disable=SC2155
-export PATH="$(pwd)/bin:$PATH"
-
-# Set script name for logs
-# shellcheck disable=SC2034
-SCRIPT_NAME="test/copy.sh"
-
-export CUR_DIR="$(dirname "$0")"
-export TQEM_SHELL_LIB_DIR="$CUR_DIR/../lib"
-
+CUR_DIR="$(dirname "$0")"
 # shellcheck disable=SC1091
 . "$CUR_DIR/common.sh"
 

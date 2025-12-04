@@ -7,7 +7,7 @@
 # Copyright (c) 2025 TQ-Systems GmbH <license@tq-group.com>, D-82229 Seefeld, Germany. All rights reserved.
 # Author: Michael Krummsdorf
 
-set -e
+set -euo pipefail
 
 # shellcheck source=log.sh
 . "$TQEM_SHELL_LIB_DIR/log.sh"

@@ -7,6 +7,8 @@
 # Copyright (c) 2025 TQ-Systems GmbH <license@tq-group.com>, D-82229 Seefeld, Germany. All rights reserved.
 # Author: Christoph Krutz
 
+set -eu
+
 # Set the script folder at the beginning of the PATH variable to ensure the use of the current
 # scripts, existing scripts in the host with the same name will be ignored
 export PATH="$TQEM_SHELL_BIN_DIR:$PATH"

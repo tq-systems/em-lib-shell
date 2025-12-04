@@ -7,7 +7,7 @@
 # Copyright (c) 2025 TQ-Systems GmbH <license@tq-group.com>, D-82229 Seefeld, Germany. All rights reserved.
 # Author: Christoph Krutz
 
-set -e
+set -euo pipefail
 
 # shellcheck source=log.sh
 . "$TQEM_SHELL_LIB_DIR/log.sh"
@@ -19,6 +19,7 @@ REMOVE_WRITE_PERMISSIONS="false"
 CREATE_LINK=""
 
 set_copy_options() {
+	set +u
 	# shellcheck disable=SC3057
 	while [ "${1:0:1}" = '-' ]; do
 		arg="$1"; shift
@@ -47,6 +48,7 @@ set_copy_options() {
 			;;
 		esac
 	done
+	set -u
 }
 
 fail_if_src_file_exists_in_dest_dir() {

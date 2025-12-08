@@ -57,32 +57,5 @@ SOURCE="$1"
 DEST="$2"
 shift; shift
 
-# shellcheck disable=SC3057
-while [ "${1:0:1}" = '-' ]; do
-	arg="$1"; shift
-	case "$arg" in
-	-o|--overwrite)
-		# shellcheck disable=SC2034
-		OVERWRITE="true"
-		;;
-	-L)
-		CREATE_LINK="$1"
-		[ -z "$CREATE_LINK" ] && tqem_log_error_and_exit "Missing link information"
-		shift
-		;;
-	--create-link*)
-		# shellcheck disable=SC2034
-		CREATE_LINK=$(echo "$arg" | cut -d'=' -f2)
-		[ -z "$CREATE_LINK" ] && tqem_log_error_and_exit "Missing link information"
-		;;
-	-l|--links)
-		# shellcheck disable=SC2034
-		COPY_FILE_LINK="true"
-		;;
-	*)
-		tqem_log_error_and_exit "unknown option: $arg"
-		;;
-	esac
-done
-
+set_copy_options "$@"
 copy_source_to_dest "$SOURCE" "$DEST"

@@ -1,3 +1,4 @@
 ## [{{ version }}]
 ### Added
 - log warnings
+- script for copying safely

@@ -7,14 +7,49 @@
 # Copyright (c) 2025 TQ-Systems GmbH <license@tq-group.com>, D-82229 Seefeld, Germany. All rights reserved.
 # Author: Christoph Krutz
 
-set -e
+set -euo pipefail
 
 # shellcheck source=log.sh
 . "$TQEM_SHELL_LIB_DIR/log.sh"
 
-# Default values
-OVERWRITE="false" # If true, files can be overwritten without throwing an error
+# Default settings
+OVERWRITE="false"      # If true, files can be overwritten without throwing an error
 COPY_FILE_LINK="false" # If true, the source link and the corresponding file are copied
+REMOVE_WRITE_PERMISSIONS="false"
+CREATE_LINK=""
+
+set_copy_options() {
+	set +u
+	# shellcheck disable=SC3057
+	while [ "${1:0:1}" = '-' ]; do
+		arg="$1"; shift
+		case "$arg" in
+		-o|--overwrite)
+			OVERWRITE="true"
+			;;
+		-s|--safe)
+			OVERWRITE="false"
+			REMOVE_WRITE_PERMISSIONS="true"
+			;;
+		-L)
+			CREATE_LINK="$1"
+			[ -z "$CREATE_LINK" ] && tqem_log_error_and_exit "Missing link information"
+			shift
+			;;
+		--create-link*)
+			CREATE_LINK=$(echo "$arg" | cut -d'=' -f2)
+			[ -z "$CREATE_LINK" ] && tqem_log_error_and_exit "Missing link information"
+			;;
+		-l|--links)
+			COPY_FILE_LINK="true"
+			;;
+		*)
+			tqem_log_error_and_exit "unknown option: $arg"
+			;;
+		esac
+	done
+	set -u
+}
 
 fail_if_src_file_exists_in_dest_dir() {
 	local source="$1"
@@ -40,6 +75,21 @@ create_dest_dir() {
 	fi
 
 	mkdir -p "$dest_dir"
+}
+
+copy_with_rsync() {
+	local source="$1"
+	local dest_dir="$2"
+	local option="${3:-}"
+
+	if [ "$REMOVE_WRITE_PERMISSIONS" = "true" ]; then
+		# For safe mode: copy without preserving permissions and remove write permissions
+		# shellcheck disable=SC2086
+		rsync -zav $option --no-perms --chmod=a-w "$source" "$dest_dir"
+	else
+		# shellcheck disable=SC2086
+		rsync -zav $option "$source" "$dest_dir"
+	fi
 }
 
 copy_source_to_dest() {
@@ -88,8 +138,8 @@ copy_source_to_dest() {
 		fi
 
 		create_dest_dir "$dest_dir"
-		# Append a slash to source - copy only the content of a source directory
-		rsync -zav --recursive "${source}/" "$dest_dir"
+		# Append a slash to the source to copy only the contents of the directory
+		copy_with_rsync "${source}/" "$dest_dir" --recursive
 
 	# Copy a file
 	elif [ -f "$source" ]; then
@@ -113,7 +163,7 @@ copy_source_to_dest() {
 		fi
 
 		create_dest_dir "$dest_dir"
-		rsync -zav "$source" "$dest_filepath"
+		copy_with_rsync "$source" "$dest_filepath"
 
 		# always overwrite links for workflows with latest/stable builds
 		if [ -n "$CREATE_LINK" ]; then

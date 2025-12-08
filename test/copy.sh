@@ -7,18 +7,7 @@
 # Copyright (c) 2025 TQ-Systems GmbH <license@tq-group.com>, D-82229 Seefeld, Germany. All rights reserved.
 # Author: Christoph Krutz
 
-# Set the script folder at the beginning of the PATH variable to ensure the use of the current
-# scripts, existing scripts in the host with the same name will be ignored
-# shellcheck disable=SC2155
-export PATH="$(pwd)/bin:$PATH"
-
-# Set script name for logs
-# shellcheck disable=SC2034
-SCRIPT_NAME="test/copy.sh"
-
-export CUR_DIR="$(dirname "$0")"
-export TQEM_SHELL_LIB_DIR="$CUR_DIR/../lib"
-
+CUR_DIR="$(dirname "$0")"
 # shellcheck disable=SC1091
 . "$CUR_DIR/common.sh"
 
@@ -241,10 +230,50 @@ fi
 if tqem-copy.sh 1 2 3 4 5 6 7; then
 	log_error_expected
 fi
+if tqem-copy-safe.sh 1; then
+	log_error_expected
+fi
+if tqem-copy-safe.sh 1 2 3 4 5 6; then
+	log_error_expected
+fi
 
 log_test_title "Pass unknown option"
 if tqem-copy.sh "one" "two" -z; then
 	log_error_expected
+fi
+
+##############################
+log_topic_title "Safe copying"
+##############################
+
+SOURCE="$SOURCE_DIR/file/test78.txt"
+DEST="$DEST_DIR/safe"
+
+log_test_title "Safely copy a file and check permissions (444)"
+if ! tqem-copy-safe.sh "$SOURCE" "$DEST"; then
+	log_success_expected
+fi
+fail_on_diff "$SOURCE" "$DEST/test78.txt"
+FILE_PERMS="$(stat -c "%a" "$DEST/test78.txt")"
+if [ "$FILE_PERMS" != "444" ]; then
+	tqem_log_error_and_exit "File ($DEST/test78.txt) has unexpected permissions ($FILE_PERMS)"
+fi
+
+log_test_title "Ignore overwrite option in safe copy"
+if tqem-copy-safe.sh "$SOURCE" "$DEST" --overwrite; then
+	log_error_expected
+fi
+
+SOURCE="$SOURCE_DIR/dir/test90.txt"
+echo 90 > "$SOURCE"; chmod 755 "$SOURCE"
+log_test_title "Safely copy a file and check permissions (555)"
+if ! tqem-copy-safe.sh "$SOURCE" "$DEST"; then
+	log_success_expected
+fi
+fail_on_diff "$SOURCE" "$DEST/test90.txt"
+FILE_PERMS="$(stat -c "%a" "$DEST/test90.txt")"
+if [ "$FILE_PERMS" != "555" ]; then
+	tqem_log_error_and_exit "File ($DEST/test90.txt) has unexpected permissions ($FILE_PERMS)"
 fi
 
 ######################
@@ -255,8 +284,16 @@ log_test_title "Show help"
 if ! tqem-copy.sh -h; then
 	log_success_expected
 fi
-# Supress 2nd help output for better readability of the test log
+# 2nd help output for better readability of the test log
 if ! tqem-copy.sh --help > /dev/null; then
+	log_success_expected
+fi
+
+if ! tqem-copy-safe.sh -h; then
+	log_success_expected
+fi
+# 2nd help output for better readability of the test log
+if ! tqem-copy-safe.sh --help > /dev/null; then
 	log_success_expected
 fi
 

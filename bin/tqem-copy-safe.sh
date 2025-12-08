@@ -18,7 +18,7 @@ TQEM_SHELL_LIB_DIR="${TQEM_SHELL_LIB_DIR:-/usr/local/lib/tqem/shell}"
 usage() {
 	echo "NAME
 
-       $SCRIPT_NAME - copy file or directory
+       $SCRIPT_NAME - safely copy file or directory without overwriting
 
 SYNOPSIS
 
@@ -31,9 +31,8 @@ DESCRIPTION
        SOURCE can be a file, a directory or a link.
        If SOURCE is directory, only the content of it will be copied.
        DESTINATION is always a directory.
-
-       -o, --overwrite
-              overwrite existing destination file(s) without errors
+       The target files are created without write permissions to prevent
+       accidental deleting/overwriting.
 
        -L LINK, --create-link=LINK
               create a relative symbolic link (requires a file in SOURCE)
@@ -49,7 +48,7 @@ if [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ]; then
 	usage; exit 0
 fi
 
-if [ $# -lt 2 ] || [ $# -gt 6 ]; then
+if [ $# -lt 2 ] || [ $# -gt 5 ]; then
 	tqem_log_error_and_exit "Unsupported number of arguments: $#"
 fi
 
@@ -57,5 +56,6 @@ SOURCE="$1"
 DEST="$2"
 shift; shift
 
-set_copy_options "$@"
+# Use safe option to disable overwriting, use safe option at the end to ensure its settings
+set_copy_options "$@" --safe
 copy_source_to_dest "$SOURCE" "$DEST"

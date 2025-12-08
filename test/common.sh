@@ -7,6 +7,15 @@
 # Copyright (c) 2025 TQ-Systems GmbH <license@tq-group.com>, D-82229 Seefeld, Germany. All rights reserved.
 # Author: Christoph Krutz
 
+set -eu
+
+# Set the script folder at the beginning of the PATH variable to ensure the use of the current
+# scripts, existing scripts in the host with the same name will be ignored
+export PATH="$TQEM_SHELL_BIN_DIR:$PATH"
+
+# Set script name for logs
+SCRIPT_NAME="test/$(basename "$0")"
+
 # shellcheck source=../lib/log.sh
 . "$TQEM_SHELL_LIB_DIR/log.sh"
 
@@ -15,7 +24,6 @@ TEST_COUNT=1
 log_topic_title() {
 	local msg="$1"
 	echo -e "\n\e[1;34m$SCRIPT_NAME tests: $msg\e[0m"
-
 }
 
 log_test_title() {

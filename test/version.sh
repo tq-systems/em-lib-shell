@@ -24,6 +24,11 @@ git config user.email "test@version.com"
 git config user.name "Version Tester"
 git add file.123; git commit -m "Testcommit"; git tag -a $TESTTAG -m "Testrepo"
 
+log_test_title "Check regular version creation"
+if ! tqem-version.sh; then
+	log_success_expected
+fi
+
 log_test_title "Check forced version"
 export TQEM_FORCE_VERSION="9.9.9-forced"
 if [ "$(tqem-version.sh)" != "9.9.9-forced" ]; then

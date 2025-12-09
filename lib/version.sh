@@ -36,7 +36,7 @@ tqem_version_git_create_version() {
 
 tqem_version_get_version() {
 	# FORCE_VERSION enables to specify an own version layout
-	if [ -n "$TQEM_FORCE_VERSION" ]; then
+	if [ -n "${TQEM_FORCE_VERSION:-}" ]; then
 		VERSION="$TQEM_FORCE_VERSION"
 	else
 		# Get version from tag (git repository)

@@ -7,7 +7,7 @@
 # Copyright (c) 2025 TQ-Systems GmbH <license@tq-group.com>, D-82229 Seefeld, Germany. All rights reserved.
 # Author: Michael Krummsdorf
 
-set -euo pipefail
+set -eo pipefail
 
 # Functions
 tqem_log_info() {

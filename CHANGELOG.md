@@ -1,3 +1,8 @@
+## [1.1.2] - 2025-12-17
+### Fixed
+- shell options for a more flexible use of the libraries
+- rsync options
+
 ## [1.1.1] - 2025-12-09
 ### Fixed
 - create regular version and add test

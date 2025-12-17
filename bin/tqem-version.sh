@@ -15,6 +15,8 @@ TQEM_SHELL_LIB_DIR="${TQEM_SHELL_LIB_DIR:-/usr/local/lib/tqem/shell}"
 # shellcheck source=../lib/version.sh
 . "$TQEM_SHELL_LIB_DIR/version.sh"
 
+set -u
+
 usage() {
 	echo "NAME
 

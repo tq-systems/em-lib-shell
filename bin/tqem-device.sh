@@ -15,6 +15,8 @@ TQEM_SHELL_LIB_DIR="${TQEM_SHELL_LIB_DIR:-/usr/local/lib/tqem/shell}"
 # shellcheck source=../lib/device.sh
 . "$TQEM_SHELL_LIB_DIR/device.sh"
 
+set -u
+
 usage() {
 	echo "NAME
 

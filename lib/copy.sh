@@ -83,12 +83,12 @@ copy_with_rsync() {
 	local option="${3:-}"
 
 	if [ "$REMOVE_WRITE_PERMISSIONS" = "true" ]; then
-		# For safe mode: copy without preserving permissions and remove write permissions
+		# Write permissions are removed for the safe mode
 		# shellcheck disable=SC2086
-		rsync -zav $option --no-perms --no-times --chmod=a-w "$source" "$dest_dir"
+		rsync -zav $option --chmod=a-w "$source" "$dest_dir"
 	else
 		# shellcheck disable=SC2086
-		rsync -zav $option --no-perms --no-times "$source" "$dest_dir"
+		rsync -zav $option "$source" "$dest_dir"
 	fi
 }
 

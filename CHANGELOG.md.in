@@ -1,3 +1,4 @@
 ## [{{ version }}]
 ### Changed
 - Fallback to regular rsync options
+- Adjust function name for log warnings

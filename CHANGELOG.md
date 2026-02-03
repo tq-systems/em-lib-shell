@@ -1,3 +1,8 @@
+## [1.1.3] - 2026-02-03
+### Changed
+- Fallback to regular rsync options
+- Adjust function name for log warnings
+
 ## [1.1.2] - 2025-12-17
 ### Fixed
 - shell options for a more flexible use of the libraries

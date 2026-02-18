@@ -1,3 +1,7 @@
+## [2.0.0] - 2026-02-18
+### Changed
+- device: Remove support for osbolete cb-30 (hw0210)
+
 ## [1.1.3] - 2026-02-03
 ### Changed
 - Fallback to regular rsync options

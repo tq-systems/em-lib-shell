@@ -1,3 +1,1 @@
 ## [{{ version }}]
-### Changed
-- device: Remove support for osbolete cb-30 (hw0210)

@@ -26,12 +26,6 @@ print_device_info() {
 	tq_em4xx_1024m=bootloader-em4xx-1g.bin
 '
 
-	local bootloaders_em_cb30='
-	tq_am625-em-cb30_512m=bootloader-em-cb30-512m.bin
-	tq_am625-em-cb30_1024m=bootloader-em-cb30-1g.bin
-	tq_am625-em-cb30_2048m=bootloader-em-cb30-2g.bin
-'
-
 	local device_type device_subtype machine device_arch product_id bootloaders
 
 	case "$device" in
@@ -49,20 +43,13 @@ print_device_info() {
 		product_id='{"tq,em4xx": 18530}'
 		bootloaders="$bootloaders_em4xx"
 		;;
-	em-cb30|hw0210)
-		device_type='hw0210'
-		machine='em-aarch64'
-		device_arch='aarch64'
-		product_id='{"tq,am625-em-cb30": 18546}'
-		bootloaders="$bootloaders_em_cb30"
-		;;
 	em-aarch64|hw02xx)
 		device_type='hw02xx'
-		device_subtype='{"tq,em4xx": "hw0200", "tq,am625-em-cb30": "hw0210"}'
+		device_subtype='{"tq,em4xx": "hw0200"}'
 		machine='em-aarch64'
 		device_arch='aarch64'
-		product_id='{"tq,em4xx": 18530, "tq,am625-em-cb30": 18546}'
-		bootloaders="$bootloaders_em4xx $bootloaders_em_cb30"
+		product_id='{"tq,em4xx": 18530}'
+		bootloaders="$bootloaders_em4xx"
 		;;
 	*)
 		tqem_log_error_and_exit "Unknown device: $device"

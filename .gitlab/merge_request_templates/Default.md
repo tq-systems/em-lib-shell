@@ -3,14 +3,11 @@
 Add a description of your merge request here.
 
 ## Tests
-- [ ] Performed alpha test according to ticket requirements: (link to test device)
-- [ ] Executed pipeline with integration tests successfully: (add link)
-- [ ] Verified that changes are covered by unit tests
-- [ ] Verified that changes are covered by integration tests
+- [ ] Verified that changes are covered by the project's integration tests
+- [ ] Tested with dependent projects: (add link or links)
 
 ## Maintenance
-- [ ] Executed dependency update
-- [ ] Updated CI/toolchain to latest tagged version
+- [ ] Updated base ci to latest tagged version
 - [ ] Tag after merge with version: vx.x.x
 
 ## Documentation
@@ -19,5 +16,3 @@ Add a description of your merge request here.
 - [ ] Added comments on more complex parts of the code
 - [ ] Created/updated relevant Confluence documentation: (add link)
   - [ ] Page approved via Confluence four-eyed approval workflow by reviewer
-- [ ] Related App MRs: (add link)
-- [ ] Breaking api changes

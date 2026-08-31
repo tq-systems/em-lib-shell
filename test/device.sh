@@ -25,41 +25,50 @@ fail_if_not_equal() {
 log_test_title "Get device type"
 fail_if_not_equal type em310 hw0100
 fail_if_not_equal type em4xx hw0200
+fail_if_not_equal type eg4xx hw0220
 fail_if_not_equal type em-aarch64 hw02xx
 
 log_test_title "Get device subtype"
 fail_if_not_equal subtype em310 ''
 fail_if_not_equal subtype em4xx ''
-fail_if_not_equal subtype em-aarch64 '{"tq,em4xx": "hw0200"}'
+fail_if_not_equal subtype eg4xx ''
+fail_if_not_equal subtype em-aarch64 '{"tq,em4xx": "hw0200", "tq,eg4xx": "hw0220"}'
 
 log_test_title "Get machine"
 fail_if_not_equal machine hw0100 em310
 fail_if_not_equal machine hw0200 em-aarch64
+fail_if_not_equal machine hw0220 em-aarch64
 fail_if_not_equal machine hw02xx em-aarch64
 
 log_test_title "Get arch"
 fail_if_not_equal arch em310 armv5e
 fail_if_not_equal arch em4xx aarch64
+fail_if_not_equal arch eg4xx aarch64
 fail_if_not_equal arch em-aarch64 aarch64
 
 log_test_title "Get product ID"
 fail_if_not_equal product-id em310 '{"tq,em310": 18514}'
 fail_if_not_equal product-id em4xx '{"tq,em4xx": 18530}'
-fail_if_not_equal product-id em-aarch64 '{"tq,em4xx": 18530}'
+fail_if_not_equal product-id eg4xx '{"tq,eg4xx": 18562}'
+fail_if_not_equal product-id em-aarch64 '{"tq,em4xx": 18530, "tq,eg4xx": 18562}'
 
 log_test_title "Get bootloaders"
 fail_if_not_equal bootloaders em310 \
 	'tq_em310_256m=u-boot.sb-em310 tqs_energymanager310_256m=u-boot.sb-em310'
 BOOTLOADERS_em4xx='tq_em4xx_512m=bootloader-em4xx-512m.bin tq_em4xx_1024m=bootloader-em4xx-1g.bin'
+BOOTLOADERS_eg4xx='tq_eg4xx_512m=bootloader-eg4xx-512m.bin'
 fail_if_not_equal bootloaders em4xx "$BOOTLOADERS_em4xx"
-fail_if_not_equal bootloaders em-aarch64 "$BOOTLOADERS_em4xx"
+fail_if_not_equal bootloaders eg4xx "$BOOTLOADERS_eg4xx"
+fail_if_not_equal bootloaders em-aarch64 "$BOOTLOADERS_em4xx $BOOTLOADERS_eg4xx"
 
 log_test_title "Test that the device OR the machine can be passed as DEVICE"
 fail_if_not_equal machine em310 em310
 fail_if_not_equal machine em4xx em-aarch64
+fail_if_not_equal machine eg4xx em-aarch64
 fail_if_not_equal machine em-aarch64 em-aarch64
 fail_if_not_equal type hw0100 hw0100
 fail_if_not_equal type hw0200 hw0200
+fail_if_not_equal type hw0220 hw0220
 fail_if_not_equal type hw02xx hw02xx
 
 ### Errors ###

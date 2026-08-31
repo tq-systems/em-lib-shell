@@ -1,7 +1,7 @@
 include:
-- project: tq-em/build/docker/base
+- project: tq-em/public/build/base
   file: ci/include.yml
-  ref: v2.0.2
+  ref: v4.0.0
 
 .test-settings:
   extends:

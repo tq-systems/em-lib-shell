@@ -12,7 +12,7 @@ include:
 Shell linter:
   extends: .lint-shell
   variables:
-    SHELLCHECK_OPTIONS: -P lib
+    TQEM_SHELLCHECK_OPTIONS: -P lib -x
 
 Check documentation:
   extends: .test-settings

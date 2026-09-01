@@ -1,3 +1,7 @@
+## [2.1.0] - 2026-09-01
+### Added
+- eg4xx (hw0220) device definitions as em-aarch64 subtype
+
 ## [2.0.0] - 2026-02-18
 ### Changed
 - device: Remove support for osbolete cb-30 (hw0210)

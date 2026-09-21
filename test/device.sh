@@ -32,7 +32,7 @@ log_test_title "Get device subtype"
 fail_if_not_equal subtype em310 ''
 fail_if_not_equal subtype em4xx ''
 fail_if_not_equal subtype eg4xx ''
-fail_if_not_equal subtype em-aarch64 '{"tq,em4xx": "hw0200", "tq,eg4xx": "hw0220"}'
+fail_if_not_equal subtype em-aarch64 '{"tq,em4xx": "hw0200", "tq,imx8mn-eg4xx": "hw0220"}'
 
 log_test_title "Get machine"
 fail_if_not_equal machine hw0100 em310
@@ -49,14 +49,14 @@ fail_if_not_equal arch em-aarch64 aarch64
 log_test_title "Get product ID"
 fail_if_not_equal product-id em310 '{"tq,em310": 18514}'
 fail_if_not_equal product-id em4xx '{"tq,em4xx": 18530}'
-fail_if_not_equal product-id eg4xx '{"tq,eg4xx": 18562}'
-fail_if_not_equal product-id em-aarch64 '{"tq,em4xx": 18530, "tq,eg4xx": 18562}'
+fail_if_not_equal product-id eg4xx '{"tq,imx8mn-eg4xx": 18562}'
+fail_if_not_equal product-id em-aarch64 '{"tq,em4xx": 18530, "tq,imx8mn-eg4xx": 18562}'
 
 log_test_title "Get bootloaders"
 fail_if_not_equal bootloaders em310 \
 	'tq_em310_256m=u-boot.sb-em310 tqs_energymanager310_256m=u-boot.sb-em310'
 BOOTLOADERS_em4xx='tq_em4xx_512m=bootloader-em4xx-512m.bin tq_em4xx_1024m=bootloader-em4xx-1g.bin'
-BOOTLOADERS_eg4xx='tq_eg4xx_512m=bootloader-eg4xx-512m.bin'
+BOOTLOADERS_eg4xx='tq_imx8mn-eg4xx_512m=bootloader-eg4xx-512m.bin'
 fail_if_not_equal bootloaders em4xx "$BOOTLOADERS_em4xx"
 fail_if_not_equal bootloaders eg4xx "$BOOTLOADERS_eg4xx"
 fail_if_not_equal bootloaders em-aarch64 "$BOOTLOADERS_em4xx $BOOTLOADERS_eg4xx"

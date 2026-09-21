@@ -26,7 +26,7 @@ print_device_info() {
 	tq_em4xx_1024m=bootloader-em4xx-1g.bin
 '
 	local bootloaders_eg4xx='
-	tq_eg4xx_512m=bootloader-eg4xx-512m.bin
+	tq_imx8mn-eg4xx_512m=bootloader-eg4xx-512m.bin
 '
 
 	local device_type device_subtype machine device_arch product_id bootloaders
@@ -53,15 +53,15 @@ print_device_info() {
 		device_subtype=''
 		machine='em-aarch64'
 		device_arch='aarch64'
-		product_id='{"tq,eg4xx": 18562}'
+		product_id='{"tq,imx8mn-eg4xx": 18562}'
 		bootloaders="$bootloaders_eg4xx"
 		;;
 	em-aarch64|hw02xx)
 		device_type='hw02xx'
-		device_subtype='{"tq,em4xx": "hw0200", "tq,eg4xx": "hw0220"}'
+		device_subtype='{"tq,em4xx": "hw0200", "tq,imx8mn-eg4xx": "hw0220"}'
 		machine='em-aarch64'
 		device_arch='aarch64'
-		product_id='{"tq,em4xx": 18530, "tq,eg4xx": 18562}'
+		product_id='{"tq,em4xx": 18530, "tq,imx8mn-eg4xx": 18562}'
 		bootloaders="$bootloaders_em4xx $bootloaders_eg4xx"
 		;;
 	*)

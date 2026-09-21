@@ -1,3 +1,7 @@
+## [2.1.1] - 2026-09-21
+### Changed
+- eg4xx: refine definitions to actual compatible designation
+
 ## [2.1.0] - 2026-09-01
 ### Added
 - eg4xx (hw0220) device definitions as em-aarch64 subtype
